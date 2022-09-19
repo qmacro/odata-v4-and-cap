@@ -5,6 +5,8 @@ date: DD MMM YYYY
 paging: "%d / %d"
 ---
 
+<!-- markdownlint-disable MD025 -->
+
 # Talk
 
 OData V4 and SAP Cloud Application Programming Model
@@ -89,11 +91,23 @@ Different document types denoting position in drafting, review and approval flow
 
 # New $search system query option
 
+* Brand new system query option for cross-property text search
 * See [Part 2: URL Conventions section 5.1.7 System Query Option $search](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc453752364)
 * [Available for Node.js and Java](https://cap.cloud.sap/docs/advanced/odata#overview)
 * Use annotation `@cds.search` for more precise definitions (see [Searching Textual Data](https://cap.cloud.sap/docs/guides/providing-services#searching-data))
 
 👉 `http://localhost:4004/northwind-model/Categories?$search=products`
+
+---
+
+# Improved $expand
+
+* In V4, expanded entities can be filtered, ordered, paged, etc with a more composable nested syntax
+* `$expand=<navprop>(...)`
+* Already some support for key system query options, in particular `$filter`, `$select` and `$orderby`
+* [Some examples](sample/app/filter.html) (see [Part 4 - all things $filter](https://www.youtube.com/watch?v=R9JyaPYtWKs&list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj&index=4))
+
+👉 `http://localhost:4004/northwind-model/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock gt 0;$select=ProductName,UnitPrice,UnitsInStock)`
 
 ---
 
@@ -111,6 +125,7 @@ Different document types denoting position in drafting, review and approval flow
 * [Monday morning thoughts: OData](https://blogs.sap.com/2018/08/20/monday-morning-thoughts-odata/)
 * [RFC 4287](https://datatracker.ietf.org/doc/html/rfc4287) (The Atom Syndication Format)
 * [RFC 5023](https://www.rfc-editor.org/rfc/rfc5023.html) (The Atom Publishing Protocol)
+* [Back to basics video series on OData](https://www.youtube.com/playlist?list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj) (Hands-on SAP Dev)
 
 ---
 
