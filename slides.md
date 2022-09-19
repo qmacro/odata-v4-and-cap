@@ -15,7 +15,7 @@ DJ Adams, Developer Advocate at SAP
 
 # What we'll cover
 
-In this session we'll look at what the SAP Cloud Application Programming Model (CAP) has to offer for OData V4.
+In this session we'll look at what the SAP Cloud Application Programming Model (CAP) has to offer for the Open Data Protocol (OData) V4.
 
 > While there is a version 4.01 of OData, the latest incarnation of which is from 2020, this talk covers the more widely known and implemented 4.0 version.
 
@@ -48,7 +48,7 @@ SAP is a key member of the OASIS OData Technical Committee.
 
 ---
 
-# Navigating the V4.0 specifications
+# OData specification documents
 
 * Core specification components and related works
 * Core components (plus errata):
@@ -58,10 +58,32 @@ SAP is a key member of the OASIS OData Technical Committee.
 * Related and supporting works:
   * ABNF Construction Rules (formal grammar definition)
   * Core Vocabularies (Capabilities, Core and Measures)
-  * EDMX and EDM Schemas
-  * Atom and JSON Formats
+  * Formats (Atom and JSON) and Schemas (EDMX and EDM)
+* Extensions:
+  * Data Aggregation
+  * Temporal Data
+
+The extension documents are Committee Specifications
+
+---
+
+# Navigating the OASIS documents
+
+Different document types denoting position in drafting, review and approval flow:
+
+* Committee Note
+* Committee Specification
+* Public Review Draft
+* Candidate OASIS Standard
+* OASIS Standard
 
 👉 `https://github.com/qmacro/odata-specs/blob/master/overview.md`
+
+---
+
+# CAP features for OData
+
+* See [Serving OData APIs](https://cap.cloud.sap/docs/advanced/odata) in the Capire documentation
 
 ---
 
@@ -77,5 +99,22 @@ SAP is a key member of the OASIS OData Technical Committee.
 * [What's New in OData Version 4.0](http://docs.oasis-open.org/odata/new-in-odata/v4.0/new-in-odata-v4.0.html)
 * The CAP documentation section on [Serving OData APIs](https://cap.cloud.sap/docs/advanced/odata)
 * [Monday morning thoughts: OData](https://blogs.sap.com/2018/08/20/monday-morning-thoughts-odata/)
-* [RFC 4287](https://datatracker.ietf.org/doc/html/rfc4287) The Atom Syndication Format
-* [RFC 5023](https://www.rfc-editor.org/rfc/rfc5023.html) The Atom Publishing Protocol
+* [RFC 4287](https://datatracker.ietf.org/doc/html/rfc4287) (The Atom Syndication Format)
+* [RFC 5023](https://www.rfc-editor.org/rfc/rfc5023.html) (The Atom Publishing Protocol)
+
+---
+
+# Standards
+
+A list of the most recent standards (with approval dates) taken from the [OASIS OPEN list of standards relating to the Open Data Protocol](https://www.oasis-open.org/standards/#odatav4.0)
+
+* OData Atom Format Version 4.0 (17 Nov 2013)
+* OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01 (12 May 2020)
+* OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 (12 May 2020)
+* OData Extension for Data Aggregation Version 4.0 (04 Nov 2015)
+* OData Extension for Temporal Data Version 4.0 - CS 01 (04 Nov 2015)
+* OData JSON Format v4.0 (24 Feb 2014)
+* OData JSON Format v4.01 (12 May 2020)
+* OData v4.0 (24 Feb 2014)
+* OData v4.01 (23 Apr 2020)
+* Repeatable Requests Version 1.0 (07 Jul 2020)
