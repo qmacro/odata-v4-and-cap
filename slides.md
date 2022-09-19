@@ -87,6 +87,16 @@ Different document types denoting position in drafting, review and approval flow
 
 ---
 
+# New $search system query option
+
+* See [Part 2: URL Conventions section 5.1.7 System Query Option $search](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc453752364)
+* [Available for Node.js and Java](https://cap.cloud.sap/docs/advanced/odata#overview)
+* Use annotation `@cds.search` for more precise definitions (see [Searching Textual Data](https://cap.cloud.sap/docs/guides/providing-services#searching-data))
+
+👉 `http://localhost:4004/northwind-model/Categories?$search=products`
+
+---
+
 # References and further reading
 
 * OData Version 4.0 specifications (the core components):
