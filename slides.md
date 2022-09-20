@@ -111,6 +111,16 @@ Different document types denoting position in drafting, review and approval flow
 
 ---
 
+# $count as system query option
+
+* In V2, `$count` could be appended to a resource path for a raw scalar value response, and `$inlinecount` was a system query option
+* In V4, `$count` is also now a system query option, replacing `$inlinecount`
+
+👉 `http://localhost:4004/northwind-model/Products/$count` -> returns raw scalar value
+👉 `http://localhost:4004/northwind-model/Products?$count=true`
+
+---
+
 # References and further reading
 
 * OData Version 4.0 specifications (the core components):
