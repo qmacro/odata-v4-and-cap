@@ -77,7 +77,7 @@ Different document types denoting position in drafting, review and approval flow
 * Candidate OASIS Standard
 * OASIS Standard
 
-👉 `https://github.com/qmacro/odata-specs/blob/master/overview.md`
+`https://github.com/qmacro/odata-specs/blob/master/overview.md`
 
 ---
 
@@ -94,7 +94,7 @@ Different document types denoting position in drafting, review and approval flow
 * [Available for Node.js and Java](https://cap.cloud.sap/docs/advanced/odata#overview)
 * Use annotation `@cds.search` for more precise definitions (see [Searching Textual Data](https://cap.cloud.sap/docs/guides/providing-services#searching-data))
 
-👉 `http://localhost:4004/northwind-model/Categories?$search=products`
+`http://localhost:4004/northwind-model/Categories?$search=products`
 
 ---
 
@@ -105,7 +105,7 @@ Different document types denoting position in drafting, review and approval flow
 * Already some support for key system query options, in particular `$filter`, `$select` and `$orderby`
 * [Some examples](sample/app/filter.html) (see [Part 4 - all things $filter](https://www.youtube.com/watch?v=R9JyaPYtWKs&list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj&index=4))
 
-👉 `http://localhost:4004/northwind-model/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock gt 0;$select=ProductName,UnitPrice,UnitsInStock)`
+`http://localhost:4004/northwind-model/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock gt 0;$select=ProductName,UnitPrice,UnitsInStock)`
 
 ---
 
@@ -114,9 +114,9 @@ Different document types denoting position in drafting, review and approval flow
 * In V2, `$count` could be appended to a resource path for a raw scalar value response, and `$inlinecount` was a system query option
 * In V4, `$count` is also now a system query option, replacing `$inlinecount`
 
-👉 `http://localhost:4004/northwind-model/Products/$count`
+`http://localhost:4004/northwind-model/Products/$count`
 
-👉 `http://localhost:4004/northwind-model/Products?$count=true`
+`http://localhost:4004/northwind-model/Products?$count=true`
 
 ---
 
@@ -128,9 +128,35 @@ Different document types denoting position in drafting, review and approval flow
   * Transformations (`filter`, `groupby` and `aggregate` supported currently)
   * Aggregation methods (`min`, `max`, `sum`, `average` etc)
 
-👉 `http://localhost:4004/northwind-model/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive)`
+`http://localhost:4004/northwind-model/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive)`
 
-👉 `http://localhost:4004/northwind-model/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock))`
+`http://localhost:4004/northwind-model/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock))`
+
+---
+
+# Data aggregation with custom aggregates
+
+* [Custom aggregates](http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.html#_Toc435016600) can be defined with annotations - [supported in CAP](https://cap.cloud.sap/docs/advanced/odata#custom-aggregates)
+* Virtual properties simplifying otherwise explicit and complex expressions
+
+## Standard, explicit
+
+`http://localhost:4004/northwind-model/Products?$apply=aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)`
+
+## Custom
+
+* Annotations: `http://localhost:4004/custom-aggregates/$metadata`
+* Simpler expression: `http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
+
+---
+
+# Singletons
+
+* A neater way to [represent a single entity at the service root](http://docs.oasis-open.org/odata/new-in-odata/v4.0/cn01/new-in-odata-v4.0-cn01.html#_Toc366145535)
+* Use [@odata.singleton](https://cap.cloud.sap/docs/advanced/odata#custom-aggregates) at the service layer
+
+`http://localhost:4004/singleton-example/BestBargain`
+
 ---
 
 # References and further reading
