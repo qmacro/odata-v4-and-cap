@@ -17,9 +17,7 @@ DJ Adams, Developer Advocate at SAP
 
 # What we'll cover
 
-In this session we'll look at what the SAP Cloud Application Programming Model (CAP) has to offer for the Open Data Protocol (OData) V4.
-
-> While there is a version 4.01 of OData, the latest incarnation of which is from 2020, this talk covers the more widely known and implemented 4.0 version.
+In this session we'll look at what the SAP Cloud Application Programming Model (CAP) has to offer for the Open Data Protocol (OData) V4. The latest incarnation of OData is 4.01. This talk covers the more widely known and implemented 4.0 version.
 
 ---
 
@@ -116,9 +114,23 @@ Different document types denoting position in drafting, review and approval flow
 * In V2, `$count` could be appended to a resource path for a raw scalar value response, and `$inlinecount` was a system query option
 * In V4, `$count` is also now a system query option, replacing `$inlinecount`
 
-👉 `http://localhost:4004/northwind-model/Products/$count` -> returns raw scalar value
+👉 `http://localhost:4004/northwind-model/Products/$count`
+
 👉 `http://localhost:4004/northwind-model/Products?$count=true`
 
+---
+
+# Data aggregation
+
+* A committee specification level extension to V4 with early support in CAP
+* Described in the document "OData Extension for Data Aggregation Version 4.0 (CS 02)"
+* Implemented via the new `$apply` system query option, using:
+  * Transformations (`filter`, `groupby` and `aggregate` supported currently)
+  * Aggregation methods (`min`, `max`, `sum`, `average` etc)
+
+👉 `http://localhost:4004/northwind-model/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive)`
+
+👉 `http://localhost:4004/northwind-model/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock))`
 ---
 
 # References and further reading
