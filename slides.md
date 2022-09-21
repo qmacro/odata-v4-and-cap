@@ -92,31 +92,54 @@ Different document types denoting position in drafting, review and approval flow
 * Brand new system query option for cross-property text search
 * See [Part 2: URL Conventions section 5.1.7 System Query Option $search](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc453752364)
 * [Available for Node.js and Java](https://cap.cloud.sap/docs/advanced/odata#overview)
-* Use annotation `@cds.search` for more precise definitions (see [Searching Textual Data](https://cap.cloud.sap/docs/guides/providing-services#searching-data))
+* Use annotation `@cds.search` for more precise definitions - see [Searching Textual Data](https://cap.cloud.sap/docs/guides/providing-services#searching-data)
 
-`http://localhost:4004/northwind-model/Categories?$search=products`
+`http://homeops:4004/main/Categories?$filter=contains(CategoryName,%27products%27)`
+
+`http://homeops:4004/main/Categories?$filter=contains(Description,%27products%27)`
+
+vs
+
+`http://homeops:4004/main/Categories?$search=products`
 
 ---
 
 # Improved $expand
 
-* In V4, expanded entities can be filtered, ordered, paged, etc with a more composable nested syntax
-* `$expand=<navprop>(...)`
+* Expanded entities can be filtered, ordered, paged, etc with a more composable nested syntax `$expand=<navprop>(<system-query-option>;...)`
 * Already some support for key system query options, in particular `$filter`, `$select` and `$orderby`
-* [Some examples](sample/app/filter.html) (see [Part 4 - all things $filter](https://www.youtube.com/watch?v=R9JyaPYtWKs&list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj&index=4))
+* Deep dive: [Part 4 - all things $filter](https://www.youtube.com/watch?v=R9JyaPYtWKs&list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj&index=4)
 
-`http://localhost:4004/northwind-model/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock gt 0;$select=ProductName,UnitPrice,UnitsInStock)`
+```text
+http://homeops:4004/main/Suppliers
+  ?$select=CompanyName
+  &$expand=Products(
+    $orderby=UnitPrice;
+    $filter=UnitsInStock gt 0;
+    $select=ProductName,UnitPrice,UnitsInStock
+  )
+```
+
+`http://homeops:4004/main/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock%20gt%200;$select=ProductName,UnitPrice,UnitsInStock)`
+
+Further examples at `http://homeops:4004/filter.html`
 
 ---
 
 # $count as system query option
 
-* In V2, `$count` could be appended to a resource path for a raw scalar value response, and `$inlinecount` was a system query option
-* In V4, `$count` is also now a system query option, replacing `$inlinecount`
+## OData V2
 
-`http://localhost:4004/northwind-model/Products/$count`
+* `$count` appended to a resource path -> raw scalar value
+* `$inlinecount` as system query option
 
-`http://localhost:4004/northwind-model/Products?$count=true`
+## OData V4
+
+* `$count` is also now a system query option, replacing `$inlinecount`
+
+`http://homeops:4004/main/Products/$count`
+
+`http://homeops:4004/main/Products?$count=true`
 
 ---
 
@@ -128,9 +151,27 @@ Different document types denoting position in drafting, review and approval flow
   * Transformations (`filter`, `groupby` and `aggregate` supported currently)
   * Aggregation methods (`min`, `max`, `sum`, `average` etc)
 
-`http://localhost:4004/northwind-model/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive)`
+```text
+http://homeops:4004/main/Products
+  ?$apply=aggregate(
+    UnitPrice with max as MostExpensive
+)
+```
 
-`http://localhost:4004/northwind-model/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock))`
+`http://homeops:4004/main/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive)`
+
+```text
+http://homeops:4004/main/Products?
+  $apply=filter(Discontinued eq true)
+         /groupby(
+           (Category_CategoryID),
+           aggregate(
+             UnitsInStock with sum as TotalStock
+            )
+          )
+```
+
+`http://homeops:4004/main/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock))`
 
 ---
 
@@ -141,21 +182,41 @@ Different document types denoting position in drafting, review and approval flow
 
 ## Standard, explicit
 
-`http://localhost:4004/northwind-model/Products?$apply=aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)`
+```text
+http://homeops:4004/main/Products
+  ?$apply=aggregate(
+    UnitsInStock with sum as TotalStock
+  )
+```
+
+`http://homeops:4004/main/Products?$apply=aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)`
 
 ## Custom
 
-* Annotations: `http://localhost:4004/custom-aggregates/$metadata`
-* Simpler expression: `http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
+* Annotations: `http://homeops:4004/custom-aggregates/$metadata`
+
+`http://homeops:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
 
 ---
 
 # Singletons
 
 * A neater way to [represent a single entity at the service root](http://docs.oasis-open.org/odata/new-in-odata/v4.0/cn01/new-in-odata-v4.0-cn01.html#_Toc366145535)
-* Use [@odata.singleton](https://cap.cloud.sap/docs/advanced/odata#custom-aggregates) at the service layer
+* Implement at the service layer with [@odata.singleton](https://cap.cloud.sap/docs/advanced/odata#custom-aggregates)
 
-`http://localhost:4004/singleton-example/BestBargain`
+```text
+http://homeops:4004/main/Products
+  ?$orderby=UnitPrice asc
+  &$top=1
+```
+
+`http://homeops:4004/main/Products?$orderby=UnitPrice%20asc&$top=1`
+
+vs
+
+Singleton defined in [main.cds](https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/singleton.cds)
+
+`http://homeops:4004/singleton-example/BestBargain`
 
 ---
 

@@ -1,6 +1,6 @@
 using northwind from '../db/schema';
 
-service NorthwindModel {
+service Main {
   entity Products as projection on northwind.Products actions {
     action discontinue() returns Products;
   }
