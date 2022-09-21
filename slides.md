@@ -220,6 +220,66 @@ Singleton defined in [main.cds](https://github.com/qmacro/odata-v4-and-cap/blob/
 
 ---
 
+# Actions and functions
+
+* Clear semantics, can be bound or unbound
+* Actions may have side effects, functions may not
+
+Examples|Bound|Unbound
+-|-|-
+Action|discontinue|submitOrder
+Function|addressLine|randomProduct
+
+* Metadata: `http://homeops:4004/main/$metadata`
+
+## Function examples (GET)
+
+* Bound: `http://homeops:4004/main/randomProduct()`
+* Unbound: `http://homeops:4004/main/Suppliers/1/Main.addressLine()`
+
+## Action examples (POST)
+
+* Bound: `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/bin/ba-discontinue`
+* Unbound: `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/bin/ua-submitOrder`
+
+---
+
+# Annotations (1 of 2)
+
+* Vocabularies and annotations have been refactored and greatly improved
+* Standard and custom vocabularies
+
+## Standard vocabularies
+
+* From OASIS: `Core`, `Measures`, `Capabilities`, `Validation`, `Aggregation`, `Authorization`
+* Example: `Capabilities.DeleteRestrictions`
+  * Described by a type: `https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#deleterestrictionstype`
+  * @readonly as sugar: `https://cap.cloud.sap/docs/advanced/fiori#prefer-readonly-mandatory-`
+  * Annotate entity: `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/service.cds#L10`
+  * Result: `http://homeops:4004/stats/$metadata`
+
+> CAP does the right thing and implements the annotation semantic (returning 405 on DELETE request)
+
+---
+
+# Annotations (2 of 2)
+
+* Vocabularies and annotations have been refactored and greatly improved
+* Standard and custom vocabularies
+
+## Custom vocabularies
+
+* From SAP: `Analytics`, `CodeList`, `Common`, `UI` and many more - see [odata-vocabularies](https://sap.github.io/odata-vocabularies/)
+* Example: `UI.SelectionFields`
+  * From the UI Vocabulary `https://github.com/SAP/odata-vocabularies/blob/main/vocabularies/UI.md`
+  * `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/index.cds#L3-L13`
+    * Separate annotations & definitions with `annotate` keyword
+    * Extended syntax for complex expressions (`UI: { ... }`)
+  * Result: `http://homeops:4004/catalog/$metadata`
+  * App: `http://homeops:4004/webapp/index.html`
+
+---
+
 # References and further reading
 
 * OData Version 4.0 specifications (the core components):
@@ -227,6 +287,7 @@ Singleton defined in [main.cds](https://github.com/qmacro/odata-v4-and-cap/blob/
   * [Part 2: URL Conventions](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html)
   * [Part 3: Common Schema Definition Language](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html)
 * [OASIS OData standards overview](https://www.oasis-open.org/standards/#odatav4.0)
+* [OData Vocabularies Version 4.0](http://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html)
 * An overview and map of the [OASIS Documents](https://github.com/qmacro/odata-specs/blob/master/overview.md)
 * [OData Published as an ISO Standard](https://www.odata.org/blog/OData-Published-as-an-ISO-Standard/)
 * [What's New in OData Version 4.0](http://docs.oasis-open.org/odata/new-in-odata/v4.0/new-in-odata-v4.0.html)
