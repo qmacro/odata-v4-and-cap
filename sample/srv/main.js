@@ -1,6 +1,6 @@
 const cds = require('@sap/cds')
 
-class NorthwindModel extends cds.ApplicationService { init(){
+class Main extends cds.ApplicationService { init(){
 
   const { Products, Suppliers } = this.entities ('northwind')
 
@@ -42,4 +42,4 @@ class NorthwindModel extends cds.ApplicationService { init(){
   return super.init()
 }}
 
-module.exports = { NorthwindModel }
+module.exports = { Main }
