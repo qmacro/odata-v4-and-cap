@@ -3,6 +3,7 @@
 declare product="${1:-1}"
 declare quantity="${2:-1}"
 curl \
+  --verbose \
   --header 'Content-Type: application/json' \
   --data '{"product":'"$product"',"quantity":'"$quantity"'}' \
   --url 'http://localhost:4004/main/submitOrder'
