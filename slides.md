@@ -151,12 +151,26 @@ See first example ("Suppliers and their stocked products, ordered by price") in 
   * Transformations (`filter`, `groupby` and `aggregate` supported currently)
   * Aggregation methods (`min`, `max`, `sum`, `average` etc)
 
+## Example
+
 ```text
 http://localhost:4004/main/Products
   ?$apply=aggregate(
     UnitPrice with max as MostExpensive
 )
 ```
+
+---
+
+# Data aggregation
+
+* A committee specification level extension to V4 with early support in CAP
+* Described in the document "OData Extension for Data Aggregation Version 4.0 (CS 02)"
+* Implemented via the new `$apply` system query option, using:
+  * Transformations (`filter`, `groupby` and `aggregate` supported currently)
+  * Aggregation methods (`min`, `max`, `sum`, `average` etc)
+
+## Another example
 
 ```text
 http://localhost:4004/main/Products?
