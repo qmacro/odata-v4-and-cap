@@ -5,4 +5,4 @@ curl \
   --silent \
   --fail \
   --request GET \
-  --url "http://localhost:4004/northwind-model/Suppliers/$supplier/NorthwindModel.addressLine()"
+  --url "http://localhost:4004/main/Suppliers/$supplier/Main.addressLine()"

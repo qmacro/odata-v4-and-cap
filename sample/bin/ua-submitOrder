@@ -5,4 +5,4 @@ declare quantity="${2:-1}"
 curl \
   --header 'Content-Type: application/json' \
   --data '{"product":'"$product"',"quantity":'"$quantity"'}' \
-  --url 'http://localhost:4004/northwind-model/submitOrder'
+  --url 'http://localhost:4004/main/submitOrder'
