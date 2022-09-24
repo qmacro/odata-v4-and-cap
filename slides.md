@@ -17,7 +17,8 @@ DJ Adams, Developer Advocate at SAP
 
 In this session we'll look at what the SAP Cloud Application Programming Model (CAP) has to offer for OData V4.
 
-> While there is a version 4.01 of OData, the latest incarnation of which is from 2020, this talk covers the more widely known and implemented 4.0 version.
+> There is a version 4.01 of OData, the latest incarnation of which is from 2020.
+> This talk covers the more widely known and implemented 4.0 version.
 
 ---
 
