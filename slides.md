@@ -17,7 +17,9 @@ DJ Adams, Developer Advocate at SAP
 
 # What we'll cover
 
-In this session we'll look at what the SAP Cloud Application Programming Model (CAP) has to offer for the Open Data Protocol (OData) V4. The latest incarnation of OData is 4.01. This talk covers the more widely known and implemented 4.0 version.
+In this session we'll look at the intersection of OData V4 and the SAP Cloud Application Programming Model (CAP) which already supports many features.
+
+> The latest incarnation of OData is 4.01. This talk covers the more widely known and implemented 4.0 version.
 
 ---
 
@@ -40,6 +42,8 @@ RFC4287   RFC5023                            |
 OData V4 (ISO/IEC)
 ```
 
+> See [Monday morning thoughts: OData](https://blogs.sap.com/2018/08/20/monday-morning-thoughts-odata/)
+
 <!--
 OASIS's stewardship of the OData standard and the eventual submission to ISO/IEC meant a more structured set of standards documents and documentation process, leading to greater clarity and accuracy, but perhaps at the cost of complexity and more formal language.
 
@@ -50,20 +54,24 @@ SAP is a key member of the OASIS OData Technical Committee.
 
 # OData specification documents
 
-* Core specification components and related works
-* Core components (plus errata):
-  * Protocol (how it relates to HTTP)
-  * URL Conventions (what you can do with OData URLs)
-  * Common Schema Definition Language (metadata)
-* Related and supporting works:
-  * ABNF Construction Rules (formal grammar definition)
-  * Core Vocabularies (Capabilities, Core and Measures)
-  * Formats (Atom and JSON) and Schemas (EDMX and EDM)
-* Extensions:
-  * Data Aggregation
-  * Temporal Data
+Core specification components and related works
 
-The extension documents are Committee Specifications
+## Core components (plus errata)
+
+* Protocol (how it relates to HTTP)
+* URL Conventions (what you can do with OData URLs)
+* Common Schema Definition Language (metadata)
+
+## Related and supporting works
+
+* ABNF Construction Rules (formal grammar definition)
+* Core Vocabularies (Capabilities, Core and Measures)
+* Formats (Atom and JSON) and Schemas (EDMX and EDM)
+
+## Extensions (Committee Specifications)
+
+* Data Aggregation
+* Temporal Data
 
 ---
 
@@ -81,26 +89,20 @@ Different document types denoting position in drafting, review and approval flow
 
 ---
 
-# CAP features for OData
-
-* See [Serving OData APIs](https://cap.cloud.sap/docs/advanced/odata) in the Capire documentation
-
----
-
 # New $search system query option
 
 * Brand new system query option for cross-property text search
 * See [Part 2: URL Conventions section 5.1.7 System Query Option $search](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc453752364)
-* [Available for Node.js and Java](https://cap.cloud.sap/docs/advanced/odata#overview)
+* [Available in CAP for Node.js and Java](https://cap.cloud.sap/docs/advanced/odata#overview)
 * Use annotation `@cds.search` for more precise definitions - see [Searching Textual Data](https://cap.cloud.sap/docs/guides/providing-services#searching-data)
 
-`http://homeops:4004/main/Categories?$filter=contains(CategoryName,%27products%27)`
+`http://localhost:4004/main/Categories?$filter=contains(CategoryName,%27products%27)`
 
-`http://homeops:4004/main/Categories?$filter=contains(Description,%27products%27)`
+`http://localhost:4004/main/Categories?$filter=contains(Description,%27products%27)`
 
 vs
 
-`http://homeops:4004/main/Categories?$search=products`
+`http://localhost:4004/main/Categories?$search=products`
 
 ---
 
@@ -111,7 +113,7 @@ vs
 * Deep dive: [Part 4 - all things $filter](https://www.youtube.com/watch?v=R9JyaPYtWKs&list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj&index=4)
 
 ```text
-http://homeops:4004/main/Suppliers
+http://localhost:4004/main/Suppliers
   ?$select=CompanyName
   &$expand=Products(
     $orderby=UnitPrice;
@@ -120,9 +122,7 @@ http://homeops:4004/main/Suppliers
   )
 ```
 
-`http://homeops:4004/main/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock%20gt%200;$select=ProductName,UnitPrice,UnitsInStock)`
-
-Further examples at `http://homeops:4004/filter.html`
+See first example ("Suppliers and their stocked products, ordered by price") in `http://localhost:4004/filter.html#more-advanced-usage`
 
 ---
 
@@ -137,9 +137,9 @@ Further examples at `http://homeops:4004/filter.html`
 
 * `$count` is also now a system query option, replacing `$inlinecount`
 
-`http://homeops:4004/main/Products/$count`
+`http://localhost:4004/main/Products/$count`
 
-`http://homeops:4004/main/Products?$count=true`
+`http://localhost:4004/main/Products?$count=true`
 
 ---
 
@@ -152,16 +152,14 @@ Further examples at `http://homeops:4004/filter.html`
   * Aggregation methods (`min`, `max`, `sum`, `average` etc)
 
 ```text
-http://homeops:4004/main/Products
+http://localhost:4004/main/Products
   ?$apply=aggregate(
     UnitPrice with max as MostExpensive
 )
 ```
 
-`http://homeops:4004/main/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive)`
-
 ```text
-http://homeops:4004/main/Products?
+http://localhost:4004/main/Products?
   $apply=filter(Discontinued eq true)
          /groupby(
            (Category_CategoryID),
@@ -171,7 +169,7 @@ http://homeops:4004/main/Products?
           )
 ```
 
-`http://homeops:4004/main/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock))`
+See `http://localhost:4004/filter.html#data-aggregation`
 
 ---
 
@@ -183,19 +181,19 @@ http://homeops:4004/main/Products?
 ## Standard, explicit
 
 ```text
-http://homeops:4004/main/Products
+http://localhost:4004/main/Products
   ?$apply=aggregate(
     UnitsInStock with sum as TotalStock
   )
 ```
 
-`http://homeops:4004/main/Products?$apply=aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)`
+`http://localhost:4004/main/Products?$apply=aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)`
 
 ## Custom
 
-* Annotations: `http://homeops:4004/custom-aggregates/$metadata`
+* Annotations: `http://localhost:4004/custom-aggregates/$metadata`
 
-`http://homeops:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
+`http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
 
 ---
 
@@ -205,18 +203,18 @@ http://homeops:4004/main/Products
 * Implement at the service layer with [@odata.singleton](https://cap.cloud.sap/docs/advanced/odata#custom-aggregates)
 
 ```text
-http://homeops:4004/main/Products
+http://localhost:4004/main/Products
   ?$orderby=UnitPrice asc
   &$top=1
 ```
 
-`http://homeops:4004/main/Products?$orderby=UnitPrice%20asc&$top=1`
+`http://localhost:4004/main/Products?$orderby=UnitPrice%20asc&$top=1`
 
 vs
 
 Singleton defined in [main.cds](https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/singleton.cds)
 
-`http://homeops:4004/singleton-example/BestBargain`
+`http://localhost:4004/singleton-example/BestBargain`
 
 ---
 
@@ -230,12 +228,12 @@ Examples|Bound|Unbound
 Action|discontinue|submitOrder
 Function|addressLine|randomProduct
 
-* Metadata: `http://homeops:4004/main/$metadata`
+* Metadata: `http://localhost:4004/main/$metadata`
 
 ## Function examples (GET)
 
-* Bound: `http://homeops:4004/main/randomProduct()`
-* Unbound: `http://homeops:4004/main/Suppliers/1/Main.addressLine()`
+* Bound: `http://localhost:4004/main/randomProduct()`
+* Unbound: `http://localhost:4004/main/Suppliers/1/Main.addressLine()`
 
 ## Action examples (POST)
 
@@ -256,7 +254,7 @@ Function|addressLine|randomProduct
   * Described by a type: `https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#deleterestrictionstype`
   * @readonly as sugar: `https://cap.cloud.sap/docs/advanced/fiori#prefer-readonly-mandatory-`
   * Annotate entity: `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/service.cds#L10`
-  * Result: `http://homeops:4004/stats/$metadata`
+  * Result: `http://localhost:4004/stats/$metadata`
 
 > CAP does the right thing and implements the annotation semantic (returning 405 on DELETE request)
 
@@ -275,8 +273,8 @@ Function|addressLine|randomProduct
   * `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/index.cds#L3-L13`
     * Separate annotations & definitions with `annotate` keyword
     * Extended syntax for complex expressions (`UI: { ... }`)
-  * Result: `http://homeops:4004/catalog/$metadata`
-  * App: `http://homeops:4004/webapp/index.html`
+  * Result: `http://localhost:4004/catalog/$metadata`
+  * App: `http://localhost:4004/webapp/index.html`
 
 ---
 

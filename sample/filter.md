@@ -1,4 +1,4 @@
-# All things $filter
+# All things $filter and more
 
 <!-- Auto build the HTML from this by running bin/autorebuildfilter -->
 
@@ -66,10 +66,6 @@ To run the CAP based V4 OData service in this repository, use `cds run`. The def
 <br>[Summary_of_Sales_by_Years?\$count=true&\$filter=day(ShippedDate) eq 1](https://services.odata.org/v4/northwind/northwind.svc/Summary_of_Sales_by_Years?$count=true&$filter=day(ShippedDate)%20eq%201)
 <br>Using `day`, one of many date and time functions, plus `$count` as a system query option, to show the number of orders
 
-**Total order value for 1996**
-<br>[Summary_of_Sales_by_Years?\$apply=filter(year(ShippedDate) eq 1996)/aggregate(Subtotal with sum as Total)](http://localhost:4004/northwind-model/Summary_of_Sales_by_Years?$apply=filter(year(ShippedDate)%20eq%201996)/aggregate(Subtotal%20with%20sum%20as%20Total))
-<br>Using `year` with a bonus digression on aggregation via `$apply`
-
 ### Arithmetic functions
 
 **Products with pennies in the unit price**
@@ -77,6 +73,9 @@ To run the CAP based V4 OData service in this repository, use `cds run`. The def
 <br>Rounding the `UnitPrice` value with `round` and comparing it to what it was with the logical operator `ne`
 
 ## More advanced usage
+
+**Suppliers and their stocked products, ordered by price**
+<br>[Suppliers?\$select=CompanyName&\$expand=Products(\$orderby=UnitPrice;\$filter=UnitsInStock gt 0;\$select=ProductName,UnitPrice,UnitsInStock)](http://localhost:4004/main/Suppliers?$select=CompanyName&$expand=Products($orderby=UnitPrice;$filter=UnitsInStock%20gt%200;$select=ProductName,UnitPrice,UnitsInStock))
 
 **Just for info - discontinued products and their categories, by category**
 <br>[Products?\$filter=Discontinued eq true&\$select=ProductName\&\$expand=Category($select=CategoryName,CategoryID)&\$orderby=Category/CategoryID](http://localhost:4004/northwind-model/Products?$filter=Discontinued%20eq%20true&$select=ProductName&$expand=Category($select=CategoryName,CategoryID)&$orderby=Category/CategoryID)
@@ -114,3 +113,15 @@ To run the CAP based V4 OData service in this repository, use `cds run`. The def
 **Email addresses in the 'example' domain for a person**
 <br>[TripPinServiceRW/People('russellwhyte')/Emails?\$filter=contains($it,'example')](https://services.odata.org/V4/(S(lx1imovv1xsufthdbddd4sps))/TripPinServiceRW/People('russellwhyte')/Emails?$filter=contains($it,%27example%27))
 <br>Using the `$it` literal to refer back to the collection in the resource path (here `Emails` is just an array of string values)
+
+## Data aggregation
+
+**Most expensive product**
+<br>[Products?\$apply=aggregate(UnitPrice with max as MostExpensive)](http://localhost:4004/main/Products?$apply=aggregate(UnitPrice%20with%20max%20as%20MostExpensive))
+
+**Stock of discontinued products, by category**
+<br>[Products?\$apply=filter(Discontinued eq true)/groupby(Category_CategoryID),aggregate(UnitsInStock with sum as TotalStock))](http://localhost:4004/main/Products?$apply=filter(Discontinued%20eq%20true)/groupby((Category_CategoryID),aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)))
+
+**Total order value for 1996**
+<br>[Summary_of_Sales_by_Years?\$apply=filter(year(ShippedDate) eq 1996)/aggregate(Subtotal with sum as Total)](http://localhost:4004/northwind-model/Summary_of_Sales_by_Years?$apply=filter(year(ShippedDate)%20eq%201996)/aggregate(Subtotal%20with%20sum%20as%20Total))
+<br>Using `year` with a bonus digression on aggregation via `$apply`
