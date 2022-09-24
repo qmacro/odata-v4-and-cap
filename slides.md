@@ -256,6 +256,10 @@ Function|addressLine|randomProduct
 
 ---
 
+> Switch to `SAP-samples/odata-basics/handsonsapdev`
+
+---
+
 # Annotations (1 of 2)
 
 * Vocabularies and annotations have been refactored and greatly improved
