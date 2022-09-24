@@ -208,12 +208,9 @@ http://localhost:4004/main/Products
 
 ## Custom
 
-* Annotations:
-  `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/customaggregates.cds`
-* Metadata:
-  `http://localhost:4004/custom-aggregates/$metadata`
-* Result:
-  `http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
+* Annotations: `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/customaggregates.cds`
+* Metadata: `http://localhost:4004/custom-aggregates/$metadata`
+* Result: `http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
 
 ---
 
@@ -232,12 +229,9 @@ http://localhost:4004/main/Products
 
 vs
 
-* Annotations:
-  `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/singleton.cds`
-* Metadata:
-  `http://localhost:4004/singleton-example/$metadata`
-* Result:
-  `http://localhost:4004/singleton-example/BestBargain`
+* Annotations: `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/singleton.cds`
+* Metadata: `http://localhost:4004/singleton-example/$metadata`
+* Result: `http://localhost:4004/singleton-example/BestBargain`
 
 ---
 
@@ -277,11 +271,13 @@ Function|addressLine|randomProduct
 ## Standard vocabularies
 
 * From OASIS: `Core`, `Measures`, `Capabilities`, `Validation`, `Aggregation`, `Authorization`
-* Example: `Capabilities.DeleteRestrictions`
-  * Described by a type: `https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#deleterestrictionstype`
-  * @readonly as sugar: `https://cap.cloud.sap/docs/advanced/fiori#prefer-readonly-mandatory-`
-  * Annotate entity: `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/service.cds#L10`
-  * Result: `http://localhost:4004/stats/$metadata`
+
+### Example (Capabilities.DeleteRestrictions)
+
+* Described by a type: `https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#deleterestrictionstype`
+* @readonly as sugar: `https://cap.cloud.sap/docs/advanced/fiori#prefer-readonly-mandatory-`
+* Annotate entity: `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/service.cds`
+* Result: `http://localhost:4004/stats/$metadata`
 
 > CAP does the right thing and implements the annotation semantic (returning 405 on DELETE request)
 
@@ -295,13 +291,15 @@ Function|addressLine|randomProduct
 ## Custom vocabularies
 
 * From SAP: `Analytics`, `CodeList`, `Common`, `UI` and many more - see [odata-vocabularies](https://sap.github.io/odata-vocabularies/)
-* Example: `UI.SelectionFields`
-  * From the UI Vocabulary `https://github.com/SAP/odata-vocabularies/blob/main/vocabularies/UI.md`
-  * `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/index.cds#L3-L13`
-    * Separate annotations & definitions with `annotate` keyword
-    * Extended syntax for complex expressions (`UI: { ... }`)
-  * Result: `http://localhost:4004/catalog/$metadata`
-  * App: `http://localhost:4004/webapp/index.html`
+
+### Example (UI.SelectionFields)
+
+* From the UI Vocabulary `https://github.com/SAP/odata-vocabularies/blob/main/vocabularies/UI.md`
+* `https://github.com/SAP-samples/odata-basics-handsonsapdev/blob/annotations/bookshop/srv/index.cds`
+  * Separate annotations & definitions with `annotate` keyword
+  * Extended syntax for complex expressions (`UI: { ... }`)
+* Result: `http://localhost:4004/catalog/$metadata`
+* App: `http://localhost:4004/webapp/index.html#browse-books`
 
 ---
 
