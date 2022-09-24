@@ -122,7 +122,9 @@ http://localhost:4004/main/Suppliers
   )
 ```
 
-See first example ("Suppliers and their stocked products, ordered by price") in `http://localhost:4004/filter.html#more-advanced-usage`
+`http://localhost:4004/filter.html#more-advanced-usage`
+
+(See first example "Suppliers and their stocked products, ordered by price")
 
 ---
 
@@ -162,13 +164,9 @@ http://localhost:4004/main/Products
 
 ---
 
-# Data aggregation
+# Data aggregation (cntd)
 
 * A committee specification level extension to V4 with early support in CAP
-* Described in the document "OData Extension for Data Aggregation Version 4.0 (CS 02)"
-* Implemented via the new `$apply` system query option, using:
-  * Transformations (`filter`, `groupby` and `aggregate` supported currently)
-  * Aggregation methods (`min`, `max`, `sum`, `average` etc)
 
 ## Another example
 
@@ -201,13 +199,21 @@ http://localhost:4004/main/Products
   )
 ```
 
-`http://localhost:4004/main/Products?$apply=aggregate(UnitsInStock%20with%20sum%20as%20TotalStock)`
+---
+
+# Data aggregation with custom aggregates (cntd)
+
+* [Custom aggregates](http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/odata-data-aggregation-ext-v4.0-cs02.html#_Toc435016600) can be defined with annotations - [supported in CAP](https://cap.cloud.sap/docs/advanced/odata#custom-aggregates)
+* Virtual properties simplifying otherwise explicit and complex expressions
 
 ## Custom
 
-* Annotations: `http://localhost:4004/custom-aggregates/$metadata`
-
-`http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
+* Annotations:
+  `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/customaggregates.cds`
+* Metadata:
+  `http://localhost:4004/custom-aggregates/$metadata`
+* Result:
+  `http://localhost:4004/custom-aggregates/Products?$apply=aggregate(UnitsInStock)`
 
 ---
 
@@ -226,9 +232,12 @@ http://localhost:4004/main/Products
 
 vs
 
-Singleton defined in [main.cds](https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/singleton.cds)
-
-`http://localhost:4004/singleton-example/BestBargain`
+* Annotations:
+  `https://github.com/qmacro/odata-v4-and-cap/blob/main/sample/srv/singleton.cds`
+* Metadata:
+  `http://localhost:4004/singleton-example/$metadata`
+* Result:
+  `http://localhost:4004/singleton-example/BestBargain`
 
 ---
 
