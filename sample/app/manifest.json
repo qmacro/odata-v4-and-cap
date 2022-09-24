@@ -11,7 +11,7 @@
     "description": "Hands-on SAP Dev",
     "dataSources": {
       "default": {
-        "uri": "/northwind-model/",
+        "uri": "/main/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
