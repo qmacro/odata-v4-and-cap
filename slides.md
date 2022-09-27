@@ -89,6 +89,10 @@ Different document types denoting position in drafting, review and approval flow
 
 ---
 
+> Examples based on `qmacro/odata-v4-and-cap`
+
+---
+
 # New $search system query option
 
 * Brand new system query option for cross-property text search
@@ -259,7 +263,7 @@ Function|addressLine|randomProduct
 
 ---
 
-> Switch to `SAP-samples/odata-basics/handsonsapdev`
+> Examples based on `SAP-samples/odata-basics-handsonsapdev`
 
 ---
 
