@@ -253,8 +253,8 @@ Function|addressLine|randomProduct
 
 ## Function examples (GET)
 
-* Bound: `http://localhost:4004/main/randomProduct()`
-* Unbound: `http://localhost:4004/main/Suppliers/1/Main.addressLine()`
+* Bound: `http://localhost:4004/main/Suppliers/1/Main.addressLine()`
+* Unbound: `http://localhost:4004/main/randomProduct()`
 
 ## Action examples (POST)
 
