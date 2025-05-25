@@ -42,7 +42,7 @@ RFC4287   RFC5023                            |
 OData V4 (ISO/IEC)
 ```
 
-> See [Monday morning thoughts: OData](https://blogs.sap.com/2018/08/20/monday-morning-thoughts-odata/)
+> See [Monday morning thoughts: OData](https://qmacro.org/blog/posts/2018/08/20/monday-morning-thoughts:-odata/)
 
 <!--
 OASIS's stewardship of the OData standard and the eventual submission to ISO/IEC meant a more structured set of standards documents and documentation process, leading to greater clarity and accuracy, but perhaps at the cost of complexity and more formal language.
@@ -319,7 +319,7 @@ Function|addressLine|randomProduct
 * [OData Published as an ISO Standard](https://www.odata.org/blog/OData-Published-as-an-ISO-Standard/)
 * [What's New in OData Version 4.0](http://docs.oasis-open.org/odata/new-in-odata/v4.0/new-in-odata-v4.0.html)
 * The CAP documentation section on [Serving OData APIs](https://cap.cloud.sap/docs/advanced/odata)
-* [Monday morning thoughts: OData](https://blogs.sap.com/2018/08/20/monday-morning-thoughts-odata/)
+* [Monday morning thoughts: OData](https://qmacro.org/blog/posts/2018/08/20/monday-morning-thoughts:-odata/)
 * [RFC 4287](https://datatracker.ietf.org/doc/html/rfc4287) (The Atom Syndication Format)
 * [RFC 5023](https://www.rfc-editor.org/rfc/rfc5023.html) (The Atom Publishing Protocol)
 * [Back to basics video series on OData](https://www.youtube.com/playlist?list=PL6RpkC85SLQDYLiN1BobWXvvnhaGErkwj) (Hands-on SAP Dev)
